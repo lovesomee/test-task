@@ -1,0 +1,1 @@
+INSERT INTO tasks (title, description, status) VALUES ($1, $2, $3)

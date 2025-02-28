@@ -1,0 +1,6 @@
+{
+  "port": 80,
+  "database": {
+    "PostgresConnection": "postgres://root:rpass@localhost:5433/test_task?sslmode=disable"
+  }
+}

@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  database:
+    container_name: "test-task"
+    image: postgres:15
+    restart: always
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=rpass
+      - POSTGRES_DB=test_task
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  db-data:
