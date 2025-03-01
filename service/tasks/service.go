@@ -8,6 +8,7 @@ type IRepository interface {
 	InsertTasks(tasks models.Tasks) error
 	UpdateTasks(tasks models.Tasks) error
 	DeleteTasks(id int) error
+	SelectTasks() ([]models.Tasks, error)
 }
 
 type Service struct {
@@ -37,4 +38,8 @@ func (s *Service) DeleteTask(id int) error {
 		return err
 	}
 	return nil
+}
+
+func (s *Service) GetTask() ([]models.Tasks, error) {
+	return s.tasksRepository.SelectTasks()
 }

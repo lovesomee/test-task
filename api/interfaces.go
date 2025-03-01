@@ -6,4 +6,5 @@ type TasksService interface {
 	AddTask(task models.Tasks) error
 	UpdateTask(task models.Tasks) error
 	DeleteTask(id int) error
+	GetTask() ([]models.Tasks, error)
 }

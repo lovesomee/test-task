@@ -14,6 +14,7 @@ func NewServer(cfg config.Settings, tasks TasksService) *http.Server {
 	router.HandleFunc("/tasks", AddTask(tasks)).Methods(http.MethodPost)
 	router.HandleFunc("/tasks", UpdateTask(tasks)).Methods(http.MethodPut)
 	router.HandleFunc("/tasks/{id}", DeleteTask(tasks)).Methods(http.MethodDelete)
+	router.HandleFunc("/tasks", GetTask(tasks)).Methods(http.MethodGet)
 
 	return &http.Server{
 		Handler: router,

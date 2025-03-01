@@ -15,16 +15,32 @@ func NewRepository(db *sqlx.DB) *Repository { return &Repository{db: db} }
 //go:embed sql/select_tasks.sql
 var selectTasksSql string
 
-func (r *Repository) SelectTasks() error {
+func (r *Repository) SelectTasks() ([]models.Tasks, error) {
+	var tasks []models.Tasks
+
 	rows, err := r.db.Query(selectTasksSql)
 	if err != nil {
-		return err
+		return []models.Tasks{}, err
 	}
 
 	defer rows.Close()
 
-	//rows.Next()
-	return nil
+	for rows.Next() {
+		var task models.Tasks
+		if err = rows.Scan(
+			&task.Id,
+			&task.Title,
+			&task.Description,
+			&task.Status,
+			&task.CreatedAt,
+			&task.UpdatedAt,
+		); err != nil {
+			return []models.Tasks{}, err
+		}
+		tasks = append(tasks, task)
+	}
+
+	return tasks, nil
 }
 
 //go:embed sql/insert_tasks.sql
